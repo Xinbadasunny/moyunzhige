@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 
+         http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+
+    <parent>
+        <groupId>com.moyunzhige</groupId>
+        <artifactId>moyunzhige-parent</artifactId>
+        <version>1.0.0-SNAPSHOT</version>
+    </parent>
+
+    <artifactId>moyunzhige-start</artifactId>
+    <packaging>jar</packaging>
+
+    <name>Moyunzhige Start</name>
+    <description>墨韵节拍：止戈 - 启动模块</description>
+
+    <dependencies>
+        <!-- Adapter Module -->
+        <dependency>
+            <groupId>com.moyunzhige</groupId>
+            <artifactId>moyunzhige-adapter</artifactId>
+        </dependency>
+
+        <!-- Infrastructure Module -->
+        <dependency>
+            <groupId>com.moyunzhige</groupId>
+            <artifactId>moyunzhige-infrastructure</artifactId>
+        </dependency>
+
+        <!-- Spring Boot Web -->
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-web</artifactId>
+        </dependency>
+    </dependencies>
+
+    <build>
+        <plugins>
+            <plugin>
+                <groupId>org.springframework.boot</groupId>
+                <artifactId>spring-boot-maven-plugin</artifactId>
+            </plugin>
+        </plugins>
+    </build>
+</project>

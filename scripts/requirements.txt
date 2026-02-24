@@ -1,0 +1,9 @@
+# 谱面生成和分析脚本
+# 无外部依赖，仅使用 Python 标准库
+
+# 使用的标准库:
+# - argparse: 命令行参数解析
+# - json: JSON 数据处理
+# - random: 随机数生成
+# - uuid: UUID 生成
+# - collections: 数据统计
