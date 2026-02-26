@@ -1,11 +1,17 @@
 server:
   port: 8081
 
-moyunzhige:
-  data:
-    dir: ./data
-
 spring:
-  jackson:
-    date-format: yyyy-MM-dd HH:mm:ss
-    time-zone: GMT+8
+  application:
+    name: talent-assessment
+
+ai:
+  qwen:
+    api-key: sk-39b05a0218ba4b87979eecdd903404e1
+    model: qwen-plus
+  gemini:
+    api-key: YOUR_GEMINI_API_KEY
+    model: gemini-2.5-pro-preview
+
+assessment:
+  data-dir: data

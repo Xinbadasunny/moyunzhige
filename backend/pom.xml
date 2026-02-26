@@ -18,7 +18,7 @@
     <packaging>pom</packaging>
 
     <name>Moyunzhige Parent</name>
-    <description>墨韵节拍：止戈 - 武术节奏游戏后端</description>
+    <description>天赋测评系统 - 后端服务</description>
 
     <properties>
         <java.version>17</java.version>
@@ -38,33 +38,11 @@
 
     <dependencyManagement>
         <dependencies>
-            <!-- Spring Boot -->
-            <dependency>
-                <groupId>org.springframework.boot</groupId>
-                <artifactId>spring-boot-starter-web</artifactId>
-                <version>3.2.0</version>
-            </dependency>
-
             <!-- COLA Framework -->
             <dependency>
                 <groupId>com.alibaba.cola</groupId>
                 <artifactId>cola-component-dto</artifactId>
                 <version>${cola.version}</version>
-            </dependency>
-
-            <!-- Jackson -->
-            <dependency>
-                <groupId>com.fasterxml.jackson.core</groupId>
-                <artifactId>jackson-databind</artifactId>
-                <version>2.15.3</version>
-            </dependency>
-
-            <!-- Lombok -->
-            <dependency>
-                <groupId>org.projectlombok</groupId>
-                <artifactId>lombok</artifactId>
-                <version>1.18.30</version>
-                <scope>provided</scope>
             </dependency>
 
             <!-- Internal Modules -->
@@ -97,7 +75,6 @@
                 <plugin>
                     <groupId>org.springframework.boot</groupId>
                     <artifactId>spring-boot-maven-plugin</artifactId>
-                    <version>3.2.0</version>
                 </plugin>
             </plugins>
         </pluginManagement>
