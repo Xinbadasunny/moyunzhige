@@ -1,4 +1,4 @@
-distribute_price_input_topicimport React, { useState } from 'react';
+import React, { useState } from 'react';
 import {
   RadarChart,
   PolarGrid,
