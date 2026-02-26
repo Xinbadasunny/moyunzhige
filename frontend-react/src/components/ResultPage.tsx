@@ -1,4 +1,4 @@
-import React from 'react';
+distribute_price_input_topicimport React, { useState } from 'react';
 import {
   RadarChart,
   PolarGrid,
@@ -14,7 +14,7 @@ import {
   Tooltip,
   Cell,
 } from 'recharts';
-import { TalentResult, TalentScore } from '../types/assessment';
+import { TalentResult, TalentScore, CareerPath, ActionPlan } from '../types/assessment';
 
 interface ResultPageProps {
   result: TalentResult;
@@ -31,6 +31,9 @@ const DIMENSION_LABELS: Record<string, string> = {
   LEARNING: '学习力',
 };
 
+const CAREER_PATH_ICONS = ['🏢', '🚀', '💡'];
+const CAREER_PATH_PREFIXES = ['精英职场', '创新事业', '超级个体'];
+
 const DIMENSION_COLORS: Record<string, string> = {
   CREATIVITY: '#3182ce',
   ANALYSIS: '#2b6cb0',
@@ -39,6 +42,116 @@ const DIMENSION_COLORS: Record<string, string> = {
   COMMUNICATION: '#4299e1',
   EXECUTION: '#63b3ed',
   LEARNING: '#90cdf4',
+};
+
+interface CareerPathCardProps {
+  path: CareerPath;
+  index: number;
+}
+
+const CareerPathCard: React.FC<CareerPathCardProps> = ({ path, index }) => {
+  const [isExpanded, setIsExpanded] = useState(true);
+  const icon = CAREER_PATH_ICONS[index % CAREER_PATH_ICONS.length];
+  
+  return (
+    <div style={{ 
+      border: '1px solid #e2e8f0', 
+      borderRadius: '12px', 
+      padding: '1.5rem',
+      backgroundColor: '#ffffff',
+      transition: 'all 0.2s ease'
+    }}>
+      <div style={{ display: 'flex', alignItems: 'flex-start', gap: '1rem' }}>
+        <div style={{ 
+          fontSize: '2rem', 
+          flexShrink: 0,
+          width: '48px',
+          height: '48px',
+          display: 'flex',
+          alignItems: 'center',
+          justifyContent: 'center'
+        }}>
+          {icon}
+        </div>
+        <div style={{ flex: 1 }}>
+          <h4 style={{ 
+            margin: '0 0 0.75rem 0', 
+            fontSize: '1.125rem', 
+            fontWeight: '600', 
+            color: '#1a365d' 
+          }}>
+            {path.name}
+          </h4>
+          <p style={{ 
+            margin: '0 0 1rem 0', 
+            fontSize: '0.9375rem', 
+            color: '#4a5568', 
+            lineHeight: '1.6' 
+          }}>
+            {path.generalAdvice}
+          </p>
+          
+          {path.identityAdvice && Object.keys(path.identityAdvice).length > 0 && (
+            <div>
+              <button
+                onClick={() => setIsExpanded(!isExpanded)}
+                style={{
+                  display: 'flex',
+                  alignItems: 'center',
+                  gap: '0.5rem',
+                  padding: '0.5rem 0',
+                  backgroundColor: 'transparent',
+                  border: 'none',
+                  cursor: 'pointer',
+                  color: '#3182ce',
+                  fontSize: '0.875rem',
+                  fontWeight: '500',
+                  ':hover': {
+                    color: '#2b6cb0'
+                  }
+                }}
+              >
+                <span style={{ 
+                  transform: isExpanded ? 'rotate(180deg)' : 'rotate(0deg)',
+                  transition: 'transform 0.2s ease',
+                  display: 'inline-block'
+                }}>
+                  ▼
+                </span>
+                {isExpanded ? '收起身份适配建议' : '展开身份适配建议'}
+              </button>
+              
+              {isExpanded && (
+                <div style={{ 
+                  marginTop: '1rem', 
+                  padding: '1rem', 
+                  backgroundColor: 'rgba(49, 130, 206, 0.05)', 
+                  borderRadius: '8px',
+                  border: '1px solid rgba(49, 130, 206, 0.1)'
+                }}>
+                  {Object.entries(path.identityAdvice).map(([identity, advice], idx) => (
+                    <div key={idx} style={{ marginBottom: idx < Object.keys(path.identityAdvice).length - 1 ? '0.75rem' : '0' }}>
+                      <div style={{ 
+                        fontSize: '0.875rem', 
+                        fontWeight: '600', 
+                        color: '#1a365d', 
+                        marginBottom: '0.25rem' 
+                      }}>
+                        {identity}
+                      </div>
+                      <div style={{ fontSize: '0.875rem', color: '#4a5568', lineHeight: '1.5' }}>
+                        {advice}
+                      </div>
+                    </div>
+                  ))}
+                </div>
+              )}
+            </div>
+          )}
+        </div>
+      </div>
+    </div>
+  );
 };
 
 export const ResultPage: React.FC<ResultPageProps> = ({ result, onRestart }) => {
@@ -87,7 +200,7 @@ export const ResultPage: React.FC<ResultPageProps> = ({ result, onRestart }) => 
               />
             </svg>
             <h1 className="gradient-text">你的天赋报告</h1>
-            <p className="result-hero-subtitle">基于 RIASEC 霍兰德职业兴趣理论</p>
+            <p className="result-hero-subtitle">启航导师 · 职业发展导航报告</p>
           </div>
 
           <div className="result-summary-card">
@@ -192,7 +305,7 @@ export const ResultPage: React.FC<ResultPageProps> = ({ result, onRestart }) => 
           </div>
 
           <div className="card" style={{ marginBottom: '2rem' }}>
-            <h3>擅长的事情</h3>
+            <h3>你的天赋引擎</h3>
             <div className="result-strength-list">
               {result.strengths.map((strength, index) => (
                 <div key={index} className="result-strength-item">
@@ -204,6 +317,99 @@ export const ResultPage: React.FC<ResultPageProps> = ({ result, onRestart }) => 
               ))}
             </div>
           </div>
+
+          {result.careerPaths && result.careerPaths.length > 0 && (
+            <div className="card" style={{ marginBottom: '2rem' }}>
+              <h3 style={{ marginBottom: '1.5rem', fontSize: '1.25rem', fontWeight: '600', color: '#1a365d' }}>三大航向</h3>
+              <div style={{ display: 'flex', flexDirection: 'column', gap: '1rem' }}>
+                {result.careerPaths.map((path, index) => (
+                  <CareerPathCard key={index} path={path} index={index} />
+                ))}
+              </div>
+            </div>
+          )}
+
+          {result.actionPlan && (
+            <div className="card" style={{ marginBottom: '2rem' }}>
+              <h3 style={{ marginBottom: '1.5rem', fontSize: '1.25rem', fontWeight: '600', color: '#1a365d' }}>
+                下一步行动
+              </h3>
+              <div style={{ marginBottom: '1.5rem' }}>
+                <div style={{ 
+                  display: 'inline-block', 
+                  padding: '0.5rem 1rem', 
+                  backgroundColor: 'rgba(49, 130, 206, 0.1)', 
+                  color: '#3182ce', 
+                  borderRadius: '8px', 
+                  fontSize: '0.875rem', 
+                  fontWeight: '500' 
+                }}>
+                  {result.actionPlan.identityLabel}
+                </div>
+              </div>
+              <div style={{ display: 'flex', flexDirection: 'column', gap: '1rem' }}>
+                {result.actionPlan.steps.map((step, index) => (
+                  <div key={index} style={{ 
+                    border: '1px solid #e2e8f0', 
+                    borderRadius: '12px', 
+                    padding: '1.25rem',
+                    backgroundColor: '#ffffff',
+                    transition: 'all 0.2s ease',
+                    ':hover': {
+                      boxShadow: '0 4px 12px rgba(49, 130, 206, 0.1)',
+                      borderColor: '#3182ce'
+                    }
+                  }}>
+                    <div style={{ display: 'flex', alignItems: 'flex-start', gap: '1rem' }}>
+                      <div style={{ 
+                        width: '32px', 
+                        height: '32px', 
+                        borderRadius: '50%', 
+                        backgroundColor: '#3182ce', 
+                        color: 'white', 
+                        display: 'flex', 
+                        alignItems: 'center', 
+                        justifyContent: 'center', 
+                        fontWeight: '600', 
+                        fontSize: '0.875rem',
+                        flexShrink: 0
+                      }}>
+                        {index + 1}
+                      </div>
+                      <div style={{ flex: 1 }}>
+                        <h4 style={{ margin: '0 0 0.5rem 0', fontSize: '1rem', fontWeight: '600', color: '#1a365d' }}>
+                          {step.title}
+                        </h4>
+                        <p style={{ margin: 0, fontSize: '0.9375rem', color: '#4a5568', lineHeight: '1.6' }}>
+                          {step.content}
+                        </p>
+                      </div>
+                    </div>
+                  </div>
+                ))}
+              </div>
+              {result.actionPlan.closingMessage && (
+                <div style={{ 
+                  marginTop: '2rem', 
+                  padding: '1.5rem', 
+                  backgroundColor: 'rgba(49, 130, 206, 0.05)', 
+                  borderRadius: '12px',
+                  borderLeft: '4px solid #3182ce'
+                }}>
+                  <p style={{ 
+                    margin: 0, 
+                    fontSize: '1rem', 
+                    color: '#1a365d', 
+                    lineHeight: '1.8',
+                    fontWeight: '500',
+                    textAlign: 'center'
+                  }}>
+                    {result.actionPlan.closingMessage}
+                  </p>
+                </div>
+              )}
+            </div>
+          )}
 
           <div className="decorative-line" />
 

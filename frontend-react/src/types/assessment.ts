@@ -41,6 +41,23 @@ export interface TalentScore {
   score: number;
 }
 
+export interface CareerPath {
+  name: string;
+  generalAdvice: string;
+  identityAdvice: Record<string, string>;
+}
+
+export interface ActionStep {
+  title: string;
+  content: string;
+}
+
+export interface ActionPlan {
+  identityLabel: string;
+  steps: ActionStep[];
+  closingMessage: string;
+}
+
 export interface TalentResult {
   talentScores: Record<string, number> | TalentScore[];
   personalityType: string;
@@ -49,4 +66,6 @@ export interface TalentResult {
   workStyleDescription: string;
   strengths: string[];
   summary: string;
+  careerPaths?: CareerPath[];
+  actionPlan?: ActionPlan;
 }

@@ -26,7 +26,7 @@ public class AssessmentService {
     
     private static final Logger log = LoggerFactory.getLogger(AssessmentService.class);
     
-    private static final int TOTAL_QUESTIONS = 10;
+    private static final int TOTAL_QUESTIONS = 35;
     private static final Set<String> VALID_KEYS = Set.of("123", "456");
     
     private final GeminiService geminiService;

@@ -28,6 +28,14 @@ export const QuestionPage: React.FC<QuestionPageProps> = ({
     return () => clearTimeout(timer);
   }, [question.id]);
 
+  const getStageLabel = () => {
+    if (currentNumber === 1) return '身份识别';
+    if (currentNumber >= 2 && currentNumber <= 13) return '第一阶段 · 工作电池模式';
+    if (currentNumber >= 14 && currentNumber <= 25) return '第二阶段 · 天生超能力';
+    if (currentNumber >= 26 && currentNumber <= 35) return '第三阶段 · 未来事业地图';
+    return '';
+  };
+
   const handleSubmit = () => {
     if (loading) return;
 
@@ -60,6 +68,18 @@ export const QuestionPage: React.FC<QuestionPageProps> = ({
               className="progress-bar-fill"
               style={{ width: `${(currentNumber / totalQuestions) * 100}%` }}
             />
+          </div>
+
+          <div style={{ display: 'flex', justifyContent: 'center', marginBottom: '1rem' }}>
+            <span style={{
+              background: 'rgba(49, 130, 206, 0.1)',
+              color: '#3182ce',
+              padding: '0.25rem 0.75rem',
+              borderRadius: '6px',
+              fontSize: '0.8125rem'
+            }}>
+              {getStageLabel()}
+            </span>
           </div>
 
           <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '1.5rem' }}>
