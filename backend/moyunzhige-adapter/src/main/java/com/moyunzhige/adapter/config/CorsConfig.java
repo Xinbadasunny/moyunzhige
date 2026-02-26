@@ -15,8 +15,15 @@ public class CorsConfig {
     public CorsFilter corsFilter() {
         CorsConfiguration config = new CorsConfiguration();
         config.setAllowCredentials(true);
-        config.setAllowedOrigins(Arrays.asList("http://localhost:3000"));
-        config.setAllowedMethods(Arrays.asList("*"));
+        // 使用 allowedOriginPatterns 支持局域网 IP 访问（例如 192.168.x.x）
+        config.setAllowedOriginPatterns(Arrays.asList(
+                "http://localhost:3000",
+                "http://127.0.0.1:3000",
+                "http://localhost:5173",
+                "http://127.0.0.1:5173",
+                "http://192.168.*:*"
+        ));
+        config.setAllowedMethods(Arrays.asList("*"));;
         config.setAllowedHeaders(Arrays.asList("*"));
         config.setMaxAge(3600L);
 
