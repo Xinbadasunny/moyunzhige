@@ -80,13 +80,13 @@ export const ResultPage: React.FC<ResultPageProps> = ({ result, onRestart }) => 
               fill="none"
               style={{ margin: '0 auto 1rem' }}
             >
-              <circle cx="30" cy="30" r="28" fill="rgba(26, 54, 93, 0.08)" />
+              <circle cx="30" cy="30" r="28" fill="rgba(255, 255, 255, 0.15)" />
               <path
                 d="M30 15 L33 25 L43 25 L35 32 L38 42 L30 36 L22 42 L25 32 L17 25 L27 25 Z"
-                fill="#1a365d"
+                fill="white"
               />
             </svg>
-            <h1>你的天赋报告</h1>
+            <h1 className="gradient-text">你的天赋报告</h1>
             <p className="result-hero-subtitle">基于 RIASEC 霍兰德职业兴趣理论</p>
           </div>
 
@@ -164,13 +164,29 @@ export const ResultPage: React.FC<ResultPageProps> = ({ result, onRestart }) => 
           </div>
 
           <div className="result-personality-card" style={{ marginBottom: '2rem' }}>
-            <h3 style={{ fontSize: '0.8rem', fontWeight: 600, color: '#718096', textTransform: 'uppercase', letterSpacing: '2px', marginBottom: '0.75rem' }}>性格类型</h3>
+            <svg
+              width="40"
+              height="40"
+              viewBox="0 0 40 40"
+              fill="none"
+              style={{ marginBottom: '1rem' }}
+            >
+              <text x="20" y="32" textAnchor="middle" fill="rgba(255, 255, 255, 0.3)" fontSize="48" fontFamily="Georgia, serif">"</text>
+            </svg>
             <h2>{result.personalityType}</h2>
             <p>{result.personalityDescription}</p>
           </div>
 
           <div className="result-workstyle-card" style={{ marginBottom: '2rem' }}>
-            <h3 style={{ fontSize: '0.8rem', fontWeight: 600, color: '#718096', textTransform: 'uppercase', letterSpacing: '2px', marginBottom: '0.75rem' }}>做事风格</h3>
+            <svg
+              width="40"
+              height="40"
+              viewBox="0 0 40 40"
+              fill="none"
+              style={{ marginBottom: '1rem' }}
+            >
+              <text x="20" y="32" textAnchor="middle" fill="rgba(255, 255, 255, 0.3)" fontSize="48" fontFamily="Georgia, serif">"</text>
+            </svg>
             <h2>{result.workStyle}</h2>
             <p>{result.workStyleDescription}</p>
           </div>
